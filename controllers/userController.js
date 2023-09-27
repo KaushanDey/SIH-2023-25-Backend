@@ -140,11 +140,13 @@ export const updateLocation = async (req,res)=>{
         if(!user){
             return res.status(500).json();
         }
-        
+        let updatedUser = await User.findById(uid);
+        user = updatedUser;
         return res.status(200).json({user});
     }catch(err){
         console.log(err);
     }
+    
 };
 
 export const getAllLocations = async (req,res)=>{
