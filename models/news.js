@@ -17,6 +17,11 @@ const newsSchema = new mongoose.Schema({
     time: {
         type: String,
         required: true
+    },
+    isApproved: {
+        type: String,
+        required: false,
+        default: "False"
     }
 });
 

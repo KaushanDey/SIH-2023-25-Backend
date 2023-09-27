@@ -5,13 +5,14 @@ import connectDB from "./db/connect.js";
 import userRouter from "./routes/userRoutes.js";
 import newsRouter from "./routes/newsRoutes.js";
 import cors from "cors";
-import http from "http";
+import chatRouter from "./routes/chatRoutes.js";
+
 
 const app = express();
-http.createServer(app);
 const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
+
 app.use(cors({
   origin:"*",
   methods:["GET","POST","PUT","OPTIONS"],
@@ -21,6 +22,7 @@ app.use(cors({
 app.options('*',cors());
 app.use(`/user`,userRouter);
 app.use(`/news`,newsRouter);
+app.use(`/chat`,chatRouter);
 
 const start = async () => {
   try {
@@ -32,4 +34,6 @@ const start = async () => {
     console.log(err);
   }
 };
+
 start();
+

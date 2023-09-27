@@ -6,22 +6,33 @@ import jwt from "jsonwebtoken";
 export const loginAdmin = async (req,res)=>{
 
     const {adminUsername,adminPassword} = req.body;
+
+    const secretKey = process.env.SECRET_KEY;
     try{
         let existingAdmin = await Admin.findOne({adminUsername});
 
         if(!existingAdmin){
             return res.status(404).json({message: "User does not exist.Please try signing up instead!!"});
         }
-    
+
         const isPasswordCorrect = adminPassword===existingAdmin.adminPassword;
+        const isUsernameCorrect = adminUsername===existingAdmin.adminUsername;
         let isAdmin = existingAdmin.isAdmin;
         let Username = existingAdmin.adminUsername;
         let District = existingAdmin.adminDistrict;
 
-        if(!isPasswordCorrect){
-            return res.status(400).json({message: "Incorrect Password!!"});
+        if(!isPasswordCorrect && !isUsernameCorrect){
+            return res.status(400).json({message: "Incorrect Credentials!!"});
         }
-        return res.status(200).json({Username,isAdmin,District});
+
+        jwt.sign(
+            {existingAdmin},
+            secretKey,
+            {expiresIn: '3000s'},
+            (err,token)=>{
+                return res.status(200).json({Username,isAdmin,District,token});
+            });
+        
     }catch(err){
         return console.log(err);
     }
@@ -33,13 +44,14 @@ export const loginUser = async (req,res)=>{
         let existingUser = await User.findOne({username});
 
         if(!existingUser){
-            return res.status(404).json({message: "User does not exist.Please try signing up instead!!"});
+            return res.status(404).json({message: "User does not exist!!"});
         }
     
         const isPasswordCorrect = password===existingUser.password;
+        const isUsernameCorrect = username===existingUser.username;
 
-        if(!isPasswordCorrect){
-            return res.status(400).json({message: "Incorrect Password!!"});
+        if(!isPasswordCorrect && !isUsernameCorrect){
+            return res.status(400).json({message: "Incorrect Credentials!!"});
         }
         return res.status(200).json({existingUser});
     }catch(err){
@@ -128,6 +140,7 @@ export const updateLocation = async (req,res)=>{
         if(!user){
             return res.status(500).json();
         }
+        
         return res.status(200).json({user});
     }catch(err){
         console.log(err);
