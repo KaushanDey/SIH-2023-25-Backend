@@ -2,9 +2,8 @@ import News from "../models/news.js";
 
 export const postNews = async (req,res) => {
 
-    const {news, type, location, time} = req.body;
+    const {news, type, location, time, isApproved} = req.body;
 
-    const isApproved = "True";
     const emergencyNews = new News({
         news,
         type,
@@ -64,6 +63,23 @@ export const getNewsByType = async (req,res) => {
         }
         news = filteredNews;
         return res.status(200).json({news});
+    }catch(err){
+        console.log(err);
+    }
+};
+
+export const newsApproval = async (req,res) => {
+
+    const nid = req.params.nid;
+    const isApproved = "True";
+    try{
+        let news = await News.findByIdAndUpdate(nid,{
+            isApproved
+        });
+        if(!news){
+            return res.status(500).json();
+        }
+        return res.status(200).json();
     }catch(err){
         console.log(err);
     }

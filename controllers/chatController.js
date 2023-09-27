@@ -20,8 +20,7 @@ export const postMessage = async (req,res)=>{
             session.startTransaction();
             await chat.save({session});
             session.commitTransaction();
-            let Messages = chat.messages;
-            return res.status(200).json({Messages}); 
+            return res.status(200).json({chat}); 
         }
 
         const session = await mongoose.startSession();
@@ -29,9 +28,8 @@ export const postMessage = async (req,res)=>{
         existingChat.messages.push(modifiedMessage);
         await existingChat.save({session});
         session.commitTransaction();
-
-        let Messages = existingChat.messages;
-        return res.status(200).json({Messages}); 
+        let chat = existingChat;
+        return res.status(200).json({chat}); 
 
     }catch(err){
         console.log(err);
@@ -47,8 +45,7 @@ export const getMessages = async (req,res)=>{
         if(!chat){
             return res.status(200).json();
         }
-        let Messages = chat.messages;
-        return res.status(200).json(Messages);
+        return res.status(200).json({chat});
     }catch(err){
         console.log(err);
     }
