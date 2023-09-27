@@ -135,8 +135,10 @@ export const updateLocation = async (req,res)=>{
 
 export const getAllLocations = async (req,res)=>{
 
+    const location = req.params.location;
     try{
         let user = await User.find();
+        let filteredUser
         if(!user){
             return res.status(500).json();
         }
