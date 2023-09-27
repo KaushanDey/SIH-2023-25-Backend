@@ -42,10 +42,8 @@ const adminSchema = new mongoose.Schema({
     required: false
   },
   subordinates: [{
-    type: mongoose.Types.ObjectId,
-    ref: "Subordinates",
-    required: false,
-    default: []
+    type: String,
+    required: true,
   }]
 });
 
