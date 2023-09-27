@@ -35,7 +35,7 @@ const userSchema = new mongoose.Schema({
   },
   depHead:{
     type: String,
-    required: false
+    required: true
   },
   Lat: {
     type: Number,
