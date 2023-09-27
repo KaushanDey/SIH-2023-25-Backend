@@ -11,8 +11,9 @@ const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
 app.use(cors({
-  origin:"*",
+  origin:"http://localhost:3000",
   methods:["GET","POST","PUT","OPTIONS"],
+  optionsSuccessStatus: 200,
   allowedHeaders:['Content-Type','Authorization','Accept','Origin','X-Requested-With','Access-Control-Allow-Origin'],
 }));
 app.options('*',cors());
