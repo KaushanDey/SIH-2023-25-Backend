@@ -3,10 +3,10 @@ import Chat from "../models/chat.js";
 
 export const postMessage = async (req,res)=>{
 
-    const {time,message} = req.body;
+    const {time,message,sender} = req.body;
     const nid = req.params.nid;
 
-    const modifiedMessage = `${message}|${time}`;
+    const modifiedMessage = `${message}%${sender}|${time}`;
 
     try{
         let existingChat = await Chat.findOne({nid});
