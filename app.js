@@ -5,8 +5,10 @@ import connectDB from "./db/connect.js";
 import userRouter from "./routes/userRoutes.js";
 import newsRouter from "./routes/newsRoutes.js";
 import cors from "cors";
+import http from "http";
 
 const app = express();
+http.createServer(app);
 const PORT = process.env.PORT || 5000;
 
 app.use(express.json());

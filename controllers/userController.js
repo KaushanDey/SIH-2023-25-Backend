@@ -16,11 +16,12 @@ export const loginAdmin = async (req,res)=>{
         const isPasswordCorrect = adminPassword===existingAdmin.adminPassword;
         let isAdmin = existingAdmin.isAdmin;
         let Username = existingAdmin.adminUsername;
+        let District = existingAdmin.adminDistrict;
 
         if(!isPasswordCorrect){
             return res.status(400).json({message: "Incorrect Password!!"});
         }
-        return res.status(200).json({Username,isAdmin});
+        return res.status(200).json({Username,isAdmin,District});
     }catch(err){
         return console.log(err);
     }
