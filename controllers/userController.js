@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import User from "../models/user.js";
-
+import jwt from "jsonwebtoken";
 export const login = async (req,res)=>{
 
     const {username,password} = req.body;
@@ -13,7 +13,7 @@ export const login = async (req,res)=>{
     
         const isPasswordCorrect = password===existingUser.password;
         let isAdmin = existingUser.isAdmin;
-        let Name = existingUser.name;
+        let Name = existingUser.username;
 
         if(!isPasswordCorrect){
             return res.status(400).json({message: "Incorrect Password!!"});
