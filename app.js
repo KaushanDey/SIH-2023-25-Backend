@@ -9,8 +9,8 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
-app.use("/${process.env.API_KEY}/user",userRouter);
-app.use("/${process.env.API_KEY}/news",newsRouter);
+app.use(`/${process.env.API_KEY}/user`,userRouter);
+app.use(`/${process.env.API_KEY}/news`,newsRouter);
 
 const start = async () => {
   try {
