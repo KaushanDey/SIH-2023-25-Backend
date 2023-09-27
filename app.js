@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(`/user`,userRouter);
 app.use(`/news`,newsRouter);
 app.use(cors({
-  origin:"http://localhost:3000",
+  origin:"*",
   methods:['GET','POST','OPTIONS'],
   allowedHeaders:['Content-Type','Authorization','Accept','Origin','X-Requested-With'],
 }));
