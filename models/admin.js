@@ -43,7 +43,7 @@ const adminSchema = new mongoose.Schema({
   },
   subordinates: [{
     type: String,
-    required: true,
+    required: false,
   }]
 });
 
