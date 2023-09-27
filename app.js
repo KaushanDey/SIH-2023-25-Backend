@@ -12,7 +12,11 @@ const PORT = process.env.PORT || 5000;
 app.use(express.json());
 app.use(`/user`,userRouter);
 app.use(`/news`,newsRouter);
-app.use(cors());
+app.use(cors({
+  origin:"*",
+  methods:['GET','POST','OPTIONS'],
+  allowedHeaders:['Content-Type','Authorization','Accept','Origin','X-Requested-With'],
+}));
 app.options('*',cors());
 
 const start = async () => {
