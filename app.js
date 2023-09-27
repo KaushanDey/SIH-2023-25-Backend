@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
 app.use(cors({
-  origin:"https://jade-mushy-lion.cyclic.cloud",
+  origin:"*",
   methods:["GET","POST","PUT"],
   allowedHeaders:['Content-Type','Authorization','Accept','Origin','X-Requested-With'],
 }));
