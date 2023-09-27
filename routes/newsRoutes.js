@@ -4,8 +4,7 @@ import { getNews, postNews } from "../controllers/newsController.js";
 
 const newsRouter = express.Router();
 
-
-newsRouter.get('/',getNews);
+newsRouter.get('/:district',getNews);
 newsRouter.post('/postNews',postNews);
 
 export default newsRouter;

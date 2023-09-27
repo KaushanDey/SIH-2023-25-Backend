@@ -135,13 +135,20 @@ export const updateLocation = async (req,res)=>{
 
 export const getAllLocations = async (req,res)=>{
 
-    const location = req.params.location;
+    const district = req.params.district;
     try{
         let user = await User.find();
-        let filteredUser
+        let filteredUser = [];
         if(!user){
             return res.status(500).json();
         }
+
+        for(let i=0;i<user.length;i++){
+            if(district===user[i].district){
+                filteredUser.push(user[i]);
+            }
+        }
+        user = filteredUser;
         return res.status(200).json({user});
     }catch(err){
         console.log(err);
