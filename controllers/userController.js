@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import Admin from "../models/admin.js";
 import User from "../models/user.js";
 import jwt from "jsonwebtoken";
+
 export const login = async (req,res)=>{
 
     const {username,password} = req.body;
@@ -71,8 +72,8 @@ export const addSubordinate = async (req,res)=>{
         const session = await mongoose.startSession();
         session.startTransaction();
         await user.save({session});
-        existingUser.subordinates.push(user);
-        await existingUser.save({session});
+        existingAdmin.subordinates.push(user);
+        await existingAdmin.save({session});
         session.commitTransaction();
     }catch(err){
         console.log(err);
