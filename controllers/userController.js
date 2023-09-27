@@ -1,19 +1,20 @@
 import mongoose from "mongoose";
+import Admin from "../models/admin.js";
 import User from "../models/user.js";
 import jwt from "jsonwebtoken";
 export const login = async (req,res)=>{
 
     const {username,password} = req.body;
     try{
-        let existingUser = await User.findOne({username});
+        let existingAdmin = await Admin.findOne({username});
 
-        if(!existingUser){
+        if(!existingAdmin){
             return res.status(404).json({message: "User does not exist.Please try signing up instead!!"});
         }
     
-        const isPasswordCorrect = password===existingUser.password;
-        let isAdmin = existingUser.isAdmin;
-        let Name = existingUser.username;
+        const isPasswordCorrect = password===existingAdmin.password;
+        let isAdmin = existingAdmin.isAdmin;
+        let Name = existingAdmin.username;
 
         if(!isPasswordCorrect){
             return res.status(400).json({message: "Incorrect Password!!"});
@@ -29,7 +30,7 @@ export const getSubordinates = async (req,res) => {
     const admin = req.params.name;
 
     try{
-        let existingAdmin = await User.findOne(admin);
+        let existingAdmin = await Admin.findOne(admin);
 
         if(!existingAdmin){
             return res.status(404).json({message: "No Department head found by this name!!"});
@@ -44,15 +45,15 @@ export const addSubordinate = async (req,res)=>{
 
     const {name,phoneNo,department,district,username,password,depHead} = req.body;
 
-    let existingUser;
+    let existingAdmin;
 
     try{
-        existingUser = await User.findOne(depHead);
+        existingAdmin = await Admin.findOne(depHead);
     }catch(err){
         console.log(err);
     }
 
-    if(!existingUser){
+    if(!existingAdmin){
         return res.status(400).json({message: "No Department head by that name!!"});
     }
 
@@ -69,6 +70,7 @@ export const addSubordinate = async (req,res)=>{
     try{
         const session = await mongoose.startSession();
         session.startTransaction();
+        await user.save({session});
         existingUser.subordinates.push(user);
         await existingUser.save({session});
         session.commitTransaction();
