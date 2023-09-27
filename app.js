@@ -10,12 +10,8 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
-app.use(cors({
-  origin:"*",
-  methods:["GET","POST","PUT","OPTIONS"],
-  allowedHeaders:['Content-Type','Authorization','Accept','Origin','X-Requested-With'],
-}));
-app.options('*',cors());
+app.use(cors());
+// app.options('*',cors());
 app.use(`/user`,userRouter);
 app.use(`/news`,newsRouter);
 
