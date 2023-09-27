@@ -5,7 +5,7 @@ import { addSubordinate, getAllLocations, getSubordinates, loginAdmin, loginUser
 const userRouter = express.Router();
 
 
-userRouter.get('/:Username',getSubordinates);
+userRouter.get('/:adminUsername',getSubordinates);
 userRouter.get('/location',getAllLocations);
 userRouter.post('/loginAdmin',loginAdmin);
 userRouter.post('/loginUser',loginUser);

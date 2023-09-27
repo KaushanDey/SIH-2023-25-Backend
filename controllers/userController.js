@@ -40,7 +40,7 @@ export const loginUser = async (req,res)=>{
         if(!isPasswordCorrect){
             return res.status(400).json({message: "Incorrect Password!!"});
         }
-        return res.status(200).json();
+        return res.status(200).json({existingUser});
     }catch(err){
         return console.log(err);
     }
@@ -48,10 +48,12 @@ export const loginUser = async (req,res)=>{
 
 export const getSubordinates = async (req,res) => {
 
-    const adminUsername = req.params.Username;
+    const adminUsername = req.params.adminUsername;
+    console.log(adminUsername);
 
     try{
         let existingAdmin = await Admin.findOne({adminUsername});
+        console.log(existingAdmin);
 
         if(!existingAdmin){
             return res.status(404).json({message: "No Department head found by this name!!"});
@@ -60,7 +62,7 @@ export const getSubordinates = async (req,res) => {
         let allSubordinates = [];
         let users = await User.find();
         for(let i=0;i<subordinates.length;i++){
-            for(let j=0;j<users.length;i++){
+            for(let j=0;j<users.length;j++){
                 if(subordinates[i]===users[j].username){
                     allSubordinates.push(users[j]);
                 }
@@ -94,7 +96,7 @@ export const addSubordinate = async (req,res)=>{
         district,
         username,
         password,
-        depHead
+        adminUsername
     });
 
     try{
