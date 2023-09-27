@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import Admin from "../models/admin.js";
 import User from "../models/user.js";
 import jwt from "jsonwebtoken";
+import bcrypt from "bcryptjs";
 
 export const loginAdmin = async (req,res)=>{
 
@@ -47,7 +48,7 @@ export const loginUser = async (req,res)=>{
             return res.status(404).json({message: "User does not exist!!"});
         }
     
-        const isPasswordCorrect = password===existingUser.password;
+        const isPasswordCorrect = bcrypt.compareSync(password,existingUser.password);
         const isUsernameCorrect = username===existingUser.username;
 
         if(!isPasswordCorrect && !isUsernameCorrect){
@@ -90,6 +91,7 @@ export const addSubordinate = async (req,res)=>{
 
     const {name,phoneNo,department,district,username,password,adminUsername} = req.body;
 
+    const hashedPassword = bcrypt.hashSync(password);
     let existingAdmin;
 
     try{
@@ -108,7 +110,7 @@ export const addSubordinate = async (req,res)=>{
         department,
         district,
         username,
-        password,
+        password: hashedPassword,
         adminUsername
     });
 
