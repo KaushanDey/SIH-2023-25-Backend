@@ -1,29 +1,29 @@
 import mongoose from "mongoose";
 
 const adminSchema = new mongoose.Schema({
-  name:{
+  adminName:{
     type: String,
     required: true,
   },
-  phoneNo: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  department: {
-    type: String,
-    required: true,
-  },
-  district: {
-    type: String,
-    required: true,
-  },
-  username: {
+  adminPhoneNo: {
     type: String,
     required: true,
     unique: true,
   },
-  password: {
+  adminDepartment: {
+    type: String,
+    required: true,
+  },
+  adminDistrict: {
+    type: String,
+    required: true,
+  },
+  adminUsername: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  adminPassword: {
     type: String,
     required: true,
     unique: true
@@ -32,14 +32,6 @@ const adminSchema = new mongoose.Schema({
     type: String,
     required: false,
     default: "False"
-  },
-  depHead:{
-    type: String,
-    required: false
-  },
-  location: {
-    type: String,
-    required: false
   },
   subordinates: [{
     type: String,

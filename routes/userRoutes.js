@@ -1,13 +1,14 @@
 import express from "express";
-import { addSubordinate, getAllLocations, getSubordinates, login, updateLocation } from "../controllers/userController.js";
+import { addSubordinate, getAllLocations, getSubordinates, loginAdmin, loginUser, updateLocation } from "../controllers/userController.js";
 
 
 const userRouter = express.Router();
 
 
-userRouter.get('/:UserName',getSubordinates);
+userRouter.get('/:Username',getSubordinates);
 userRouter.get('/location',getAllLocations);
-userRouter.post('/login',login);
+userRouter.post('/loginAdmin',loginAdmin);
+userRouter.post('/loginUser',loginUser);
 userRouter.post('/addSubordinate',addSubordinate);
 userRouter.post('/updateLocation/:uid',updateLocation);
 

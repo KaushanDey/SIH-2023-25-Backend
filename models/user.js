@@ -33,7 +33,7 @@ const userSchema = new mongoose.Schema({
     required: false,
     default: "False"
   },
-  depHead:{
+  adminUsername:{
     type: String,
     required: true
   },

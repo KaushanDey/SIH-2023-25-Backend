@@ -3,19 +3,19 @@ import Admin from "../models/admin.js";
 import User from "../models/user.js";
 import jwt from "jsonwebtoken";
 
-export const login = async (req,res)=>{
+export const loginAdmin = async (req,res)=>{
 
-    const {username,password} = req.body;
+    const {adminUsername,adminPassword} = req.body;
     try{
-        let existingAdmin = await Admin.findOne({username});
+        let existingAdmin = await Admin.findOne({adminUsername});
 
         if(!existingAdmin){
             return res.status(404).json({message: "User does not exist.Please try signing up instead!!"});
         }
     
-        const isPasswordCorrect = password===existingAdmin.password;
+        const isPasswordCorrect = adminPassword===existingAdmin.adminPassword;
         let isAdmin = existingAdmin.isAdmin;
-        let Username = existingAdmin.username;
+        let Username = existingAdmin.adminUsername;
 
         if(!isPasswordCorrect){
             return res.status(400).json({message: "Incorrect Password!!"});
@@ -25,13 +25,33 @@ export const login = async (req,res)=>{
         return console.log(err);
     }
 };
+export const loginUser = async (req,res)=>{
+
+    const {username,password} = req.body;
+    try{
+        let existingUser = await User.findOne({username});
+
+        if(!existingUser){
+            return res.status(404).json({message: "User does not exist.Please try signing up instead!!"});
+        }
+    
+        const isPasswordCorrect = password===existingUser.password;
+
+        if(!isPasswordCorrect){
+            return res.status(400).json({message: "Incorrect Password!!"});
+        }
+        return res.status(200).json();
+    }catch(err){
+        return console.log(err);
+    }
+};
 
 export const getSubordinates = async (req,res) => {
 
-    const admin = req.params.Username;
+    const adminUsername = req.params.Username;
 
     try{
-        let existingAdmin = await Admin.findOne({admin});
+        let existingAdmin = await Admin.findOne({adminUsername});
 
         if(!existingAdmin){
             return res.status(404).json({message: "No Department head found by this name!!"});
@@ -53,12 +73,12 @@ export const getSubordinates = async (req,res) => {
 };
 export const addSubordinate = async (req,res)=>{
 
-    const {name,phoneNo,department,district,username,password,depHead} = req.body;
+    const {name,phoneNo,department,district,username,password,adminUsername} = req.body;
 
     let existingAdmin;
 
     try{
-        existingAdmin = await Admin.findOne({depHead});
+        existingAdmin = await Admin.findOne({adminUsername});
     }catch(err){
         console.log(err);
     }
