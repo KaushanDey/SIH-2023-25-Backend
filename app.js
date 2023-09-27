@@ -10,14 +10,14 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
-app.use(`/user`,userRouter);
-app.use(`/news`,newsRouter);
 app.use(cors({
   origin:"https://jade-mushy-lion.cyclic.cloud",
   methods:["GET","POST","PUT"],
-  // allowedHeaders:['Content-Type','Authorization','Accept','Origin','X-Requested-With'],
+  allowedHeaders:['Content-Type','Authorization','Accept','Origin','X-Requested-With'],
 }));
 app.options('*',cors());
+app.use(`/user`,userRouter);
+app.use(`/news`,newsRouter);
 
 const start = async () => {
   try {
