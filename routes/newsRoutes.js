@@ -4,7 +4,7 @@ import { getNews, getNewsByType, newsApproval, postNews } from "../controllers/n
 
 const newsRouter = express.Router();
 
-newsRouter.get('/approval',newsApproval);
+newsRouter.get('/approval/:nid',newsApproval);
 newsRouter.get('/:district',getNews);
 newsRouter.get('/type/:type',getNewsByType);
 newsRouter.post('/postNews',postNews);
