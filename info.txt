@@ -1,0 +1,4 @@
+MongoDB:
+Name: EmergencyRescueAPI
+Username: hackathonsmartindia7
+Password: IxK9GDAc7pJYGhXF
