@@ -13,9 +13,9 @@ app.use(express.json());
 app.use(`/user`,userRouter);
 app.use(`/news`,newsRouter);
 app.use(cors({
-  origin:"*",
-  methods:['GET','POST','OPTIONS'],
-  allowedHeaders:['Content-Type','Authorization','Accept','Origin','X-Requested-With'],
+  origin:"https://jade-mushy-lion.cyclic.cloud",
+  methods:["GET","POST","PUT"],
+  // allowedHeaders:['Content-Type','Authorization','Accept','Origin','X-Requested-With'],
 }));
 app.options('*',cors());
 
