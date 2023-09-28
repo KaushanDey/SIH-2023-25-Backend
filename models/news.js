@@ -1,3 +1,4 @@
+import { Double } from "mongodb";
 import mongoose from "mongoose";
 
 const newsSchema = new mongoose.Schema({
@@ -13,6 +14,16 @@ const newsSchema = new mongoose.Schema({
     location: {
         type: String,
         required: true
+    },
+    lat: {
+        type: Double,
+        required: true,
+        default: 0.0
+    },
+    lng: {
+        type: Double,
+        required: true,
+        default: 0.0
     },
     time: {
         type: String,

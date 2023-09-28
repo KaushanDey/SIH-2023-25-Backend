@@ -2,13 +2,15 @@ import News from "../models/news.js";
 
 export const postNews = async (req,res) => {
 
-    const {news, type, location, time, isApproved} = req.body;
+    const {news, type, location, time, lat, lng, isApproved} = req.body;
 
     const emergencyNews = new News({
         news,
         type,
         location,
         time,
+        lat,
+        lng,
         isApproved
     });
 

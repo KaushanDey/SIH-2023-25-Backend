@@ -1,3 +1,4 @@
+import { Double } from "mongodb";
 import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
@@ -38,12 +39,12 @@ const userSchema = new mongoose.Schema({
     required: true
   },
   Lat: {
-    type: Number,
+    type: Double,
     required: false,
     default: 0
   },
   Long: {
-    type: Number,
+    type: Double,
     required: false,
     default: 0
   }
